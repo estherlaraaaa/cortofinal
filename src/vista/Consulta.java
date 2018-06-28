@@ -156,6 +156,9 @@ public class Consulta extends JFrame {
                     case 3:
 
                         return String.class;
+                    case 4:
+
+                        return String.class;
 
                     default:
 
@@ -196,7 +199,7 @@ public class Consulta extends JFrame {
 
                 FiltroDao fd = new FiltroDao();
 
-                Filtro f = new Filtro(carnet.getText(), nombres.getText(), apellidos.getText(), universidad.getSelectedItem().toString(), Integer.parseInt( edad.getText()), true);
+                Filtro f = new Filtro(carnet.getText(), nombres.getText(), apellidos.getText(), universidad.getSelectedItem().toString(), Integer.parseInt(edad.getText()), true);
 
                 if (no.isSelected()) {
 
@@ -230,7 +233,7 @@ public class Consulta extends JFrame {
 
                 FiltroDao fd = new FiltroDao();
 
-                Filtro f = new Filtro(carnet.getText(), nombres.getText(), apellidos.getText(), universidad.getSelectedItem().toString(), Integer.parseInt( edad.getText()), true);
+                Filtro f = new Filtro(carnet.getText(), nombres.getText(), apellidos.getText(), universidad.getSelectedItem().toString(), Integer.parseInt(edad.getText()), true);
 
                 if (no.isSelected()) {
 
@@ -264,7 +267,7 @@ public class Consulta extends JFrame {
 
                 FiltroDao fd = new FiltroDao();
 
-                Filtro f = new Filtro(carnet.getText(), nombres.getText(), apellidos.getText(), universidad.getSelectedItem().toString(), Integer.parseInt( edad.getText()), true);
+                Filtro f = new Filtro(carnet.getText(), nombres.getText(), apellidos.getText(), universidad.getSelectedItem().toString(), Integer.parseInt(edad.getText()), true);
 
                 if (fd.delete(carnet.getText())) {
 

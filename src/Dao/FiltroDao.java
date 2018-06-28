@@ -223,7 +223,7 @@ public class FiltroDao implements metodos<Filtro> {
 
             while (rs.next()) {
 
-                f = new Filtro(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getBoolean(7));
+                f = new Filtro(rs.getString("nombres"), rs.getString("apellidos"),rs.getString("universidad"), rs.getInt("edad"),  rs.getBoolean("estado"));
 
             }
 
@@ -271,7 +271,7 @@ public class FiltroDao implements metodos<Filtro> {
 
             while (rs.next()) {
 
-                all.add(new Filtro(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getBoolean(7)));
+                all.add(new Filtro(rs.getString("carnet"),rs.getString("nombres"),rs.getString("apellidos"),rs.getString("universidad"), rs.getInt("edad"),rs.getBoolean("estado")));
 
             }
 
