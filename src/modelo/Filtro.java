@@ -7,98 +7,158 @@ package modelo;
 
 /**
  *
- * @author LN710Q
+ * @author Estehr Lara
  */
 public class Filtro {
 
+
     private String carnet;
-    private String nombre;
-    private String universidad;
-    private int edad;
+
+    private String nombres;
+
     private String apellidos;
-    private boolean existencia;
+
+    private String universidad;
+    
+    private int edad;
+
+    private boolean estado;
 
     public Filtro() {
+
     }
 
-    public Filtro(String carnet, String nombre, String universidad, int edad, String apellidos, boolean existencia) {
+    public Filtro(String carnet, String nombres, String apellidos, String universidad, int edad, boolean estado) {
+
+
         this.carnet = carnet;
-        this.nombre = nombre;
-        this.universidad = universidad;
-        this.edad = edad;
+
+        this.nombres = nombres;
+
         this.apellidos = apellidos;
-        this.existencia = existencia;
-    }
 
-    public Filtro(String nombre, String universidad, int edad, String apellidos, boolean existencia) {
-        this.nombre = nombre;
         this.universidad = universidad;
-        this.edad = edad;
-        this.apellidos = apellidos;
-        this.existencia = existencia;
+
+        this.estado = estado;
     }
 
-    public Filtro(String universidad, int edad, String apellidos, boolean existencia) {
+    public Filtro(String nombres, String apellidos, String universidad, int edad, boolean estado) {
+
+        this.nombres = nombres;
+
+        this.apellidos = apellidos;
+
         this.universidad = universidad;
-        this.edad = edad;
+
+        this.estado = estado;
+    }
+
+    public Filtro(String universidad, boolean estado) {
+
+        this.universidad = universidad;
+
+        this.estado = estado;
+
+    }
+
+    public Filtro(String carnet, String nombres, String apellidos, String universidad, String string3, int edad, boolean estado) {
+         this.carnet = carnet;
+
+        this.nombres = nombres;
+
         this.apellidos = apellidos;
-        this.existencia = existencia;
+
+        this.universidad = universidad;
+
+        this.estado = estado;
     }
 
-    public String getCarnet() {
-        return carnet;
+    public Filtro( String carnet, String nombres, String apellidos, int edad, String universidad, String string3, boolean estado) {
+ 
+
+        this.carnet = carnet;
+
+        this.nombres = nombres;
+
+        this.apellidos = apellidos;
+
+        this.universidad = universidad;
+
+        this.estado = estado;
     }
 
-    public void setcCarnet(String carnet) {
-        this.carnet=carnet;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+  
 
     public String getUniversidad() {
+
         return universidad;
+
     }
 
     public void setUniversidad(String universidad) {
+
         this.universidad = universidad;
+
     }
 
-    public int getEdad() {
-        return edad;
+    public String getCarnet() {
+
+        return carnet;
+
     }
 
-    public void setEdad(int edad) {
-        this.edad = edad;
+    public void setCarnet(String carnet) {
+
+        this.carnet = carnet;
+
     }
 
-    public String setApellidos() {
-        return apellidos;
+    public String getNombres() {
+
+        return nombres;
+
     }
 
-    public void setapellidos(String apellidos) {
-        this.apellidos = apellidos;
+    public void setNombres(String nombres) {
+
+        this.nombres = nombres;
+
     }
 
     public String getApellidos() {
+
         return apellidos;
+
     }
 
-    public boolean isExistencia() {
-        return existencia;
+    public void setApellidos(String apellidos) {
+
+        this.apellidos = apellidos;
+
     }
 
-    public void setExistencia(boolean existencia) {
-        this.existencia = existencia;
+    public int getEdad() {
+
+        return edad;
+
     }
 
-    public boolean getExistencia() {
-        return existencia;
+    public void setEdad(int edad) {
+
+        this.edad = edad;
+
+    }
+
+    public boolean getEstado() {
+
+        return estado;
+
+    }
+
+    public void setEstado(boolean estado) {
+
+        this.estado = estado;
+
     }
 
 }

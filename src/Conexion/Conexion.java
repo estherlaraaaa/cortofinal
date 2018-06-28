@@ -6,59 +6,84 @@
 package Conexion;
 
 import java.sql.Connection;
+
 import java.sql.DriverManager;
+
 import java.sql.SQLException;
+
 import java.util.logging.Level;
+
 import java.util.logging.Logger;
 
 /**
  *
- * @author LN710Q
+ * @author Esther Lara
  */
 public class Conexion {
+
     private String user;
+
     private String pass;
+
     private String driver;
+
     private String url;
-    
+
     private Connection cnx;
-    
+
     public static Conexion instance;
-    
-    public synchronized static Conexion conectar(){
-        if(instance == null){
+
+    public synchronized static Conexion conectar() {
+
+        if (instance == null) {
+
             return new Conexion();
+
         }
+
         return instance;
+
     }
-    
+
     private Conexion() {
+
         cargarCredenciales();
-        
+
         try {
+
             Class.forName(this.driver);
-            cnx = (Connection) DriverManager.getConnection(this.url, this.user,this.pass);
+
+            cnx = (Connection) DriverManager.getConnection(this.url, this.user, this.pass);
+
         } catch (ClassNotFoundException | SQLException ex) {
+
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+
         }
+
     }
-    
+
     private void cargarCredenciales() {
+
         user = "root";
-        pass = "";//poner contrasena y ese user y pass que se usara para XAMP
+
+        pass = "";
+
         driver = "com.mysql.jdbc.Driver";
-        url = "jdbc:mysql://127.0.0.1/SQL";
+
+        url = "jdbc:mysql://localhost/inscripciones";
+
     }
-    
-    public Connection getCnx(){
+
+    public Connection getCnx() {
+
         return cnx;
+
     }
-    
-    public void cerrarConexion(){
+
+    public void cerrarConexion() {
+
         instance = null;
+
     }
-
-
 }
-    
-

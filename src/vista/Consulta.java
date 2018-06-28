@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -26,29 +27,26 @@ import modelo.Filtro;
 
 /**
  *
- * @author LN710Q
+ * @author Esther Lara
  */
 public class Consulta extends JFrame {
-    public JLabel lblCarnet, lblUniversidad, lblNombre, lblApellidos,lblEdad, lblExistencia, lblEstado;
 
-    public JTextField carnet, nombre, apellido, edad, estado;
+    public JLabel lblCarnet, lblNombre, lblApellido, lblEdad, lblUniversidad, lblEstado;
+    public JTextField carnet, nombres, apellidos, edad;
     public JComboBox universidad;
-
-    ButtonGroup existencia = new ButtonGroup();
+    ButtonGroup estado = new ButtonGroup();
     public JRadioButton no;
     public JRadioButton si;
     public JTable resultados;
-
     public JPanel table;
-
     public JButton buscar, eliminar, insertar, limpiar, actualizar;
-    
-    private static final int ANCHOC = 130, ALTOC = 30;
+    private static final int ANCHOC = 150, ALTOC = 25;
 
     DefaultTableModel tm;
 
     public Consulta() {
-        super("Alumnos");
+
+        super("Inscripcion");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         agregarLabels();
@@ -56,18 +54,16 @@ public class Consulta extends JFrame {
         llenarTabla();
         Container container = getContentPane();
         container.add(lblCarnet);
-        container.add(lblUniversidad);
         container.add(lblNombre);
-        container.add(lblApellidos);
+        container.add(lblApellido);
         container.add(lblEdad);
-        container.add(lblExistencia);
+        container.add(lblUniversidad);
         container.add(lblEstado);
         container.add(carnet);
-        container.add(universidad);
-        container.add(nombre);
-        container.add(apellido);
+        container.add(nombres);
+        container.add(apellidos);
         container.add(edad);
-        container.add(estado);
+        container.add(universidad);
         container.add(si);
         container.add(no);
         container.add(buscar);
@@ -78,32 +74,31 @@ public class Consulta extends JFrame {
         container.add(table);
         setSize(600, 600);
         eventos();
-
     }
 
     private void agregarLabels() {
+
         lblCarnet = new JLabel("Carnet");
-        lblUniversidad = new JLabel("Universidad");
-        lblEstado = new JLabel("Estado");
-        lblApellidos = new JLabel("Apellidos");
         lblNombre = new JLabel("Nombre");
+        lblApellido = new JLabel("Apellido");
         lblEdad = new JLabel("Edad");
-        lblExistencia = new JLabel("Estado");
+        lblUniversidad = new JLabel("Universidad");
+        lblEstado = new JLabel("Estado de Inscripcion");
         lblCarnet.setBounds(10, 10, ANCHOC, ALTOC);
-        lblUniversidad.setBounds(10, 60, ANCHOC, ALTOC);
-        lblApellidos.setBounds(10, 100, ANCHOC, ALTOC);
-        lblNombre.setBounds(90, 100, ANCHOC, ALTOC);
-        lblEdad.setBounds(10, 140, ANCHOC, ALTOC);
-        lblExistencia.setBounds(10, 180, ANCHOC, ALTOC);
+        lblNombre.setBounds(20, 45, ANCHOC, ALTOC);
+        lblApellido.setBounds(120, 45, ANCHOC, ALTOC);
+        lblEdad.setBounds(10, 100, 75, ALTOC);
+        lblUniversidad.setBounds(10, 140, ANCHOC, ALTOC);
+        lblEstado.setBounds(10, 180, ANCHOC, ALTOC);
+
     }
 
     private void formulario() {
         carnet = new JTextField();
-        universidad = new JComboBox();
-        nombre = new JTextField();
-        apellido = new JTextField();
+        nombres = new JTextField();
+        apellidos = new JTextField();
         edad = new JTextField();
-        estado = new JTextField();
+        universidad = new JComboBox();
         si = new JRadioButton("si", true);
         no = new JRadioButton("no");
         resultados = new JTable();
@@ -112,26 +107,25 @@ public class Consulta extends JFrame {
         eliminar = new JButton("Eliminar");
         actualizar = new JButton("Actualizar");
         limpiar = new JButton("Limpiar");
-
         table = new JPanel();
+        universidad.addItem("UCA");
+        universidad.addItem("UDB");
+        universidad.addItem("UFG");
+        universidad.addItem("UGB");
+        estado = new ButtonGroup();
+        estado.add(si);
+        estado.add(no);
 
-        universidad.addItem("uca");
-        universidad.addItem("matias");
-        universidad.addItem("don bosco");
-        universidad.addItem("evangelica");
-
-        existencia = new ButtonGroup();
-        existencia.add(si);
-        existencia.add(no);
         //-------------------------------------------
         carnet.setBounds(140, 10, ANCHOC, ALTOC);
-        apellido.setBounds(140, 60, ANCHOC, ALTOC);
-        universidad.setBounds(140, 100, ANCHOC, ALTOC);
-        estado.setBounds(140, 160, ANCHOC, ALTOC);
-        si.setBounds(140, 140, 50, ALTOC);
-        no.setBounds(210, 140, 50, ALTOC);
+        nombres.setBounds(20, 70, ANCHOC, ALTOC);
+        apellidos.setBounds(200, 70, ANCHOC, ALTOC);
+        universidad.setBounds(140, 140, ANCHOC, ALTOC);
+        edad.setBounds(140, 100, 75, ALTOC);
+        si.setBounds(140, 180, 50, ALTOC);
+        no.setBounds(210, 182, 50, ALTOC);
 
-        buscar.setBounds(300, 10, ANCHOC, ALTOC);
+        buscar.setBounds(300, 10, 75, ALTOC);
         insertar.setBounds(10, 210, ANCHOC, ALTOC);
         actualizar.setBounds(150, 210, ANCHOC, ALTOC);
         eliminar.setBounds(300, 210, ANCHOC, ALTOC);
@@ -140,36 +134,52 @@ public class Consulta extends JFrame {
         resultados = new JTable();
         table.setBounds(10, 250, 500, 200);
         table.add(new JScrollPane(resultados));
-
     }
 
     private void llenarTabla() {
         tm = new DefaultTableModel() {
             public Class<?> getColumnClass(int column) {
                 switch (column) {
+
                     case 0:
+
                         return String.class;
+
                     case 1:
+
                         return String.class;
+
                     case 2:
+
                         return String.class;
+
+                    case 3:
+
+                        return String.class;
+
                     default:
+
                         return Boolean.class;
+
                 }
+
             }
+
         };
 
         tm.addColumn("Carnet");
-        tm.addColumn("Nomnbre");
+        tm.addColumn("Nombre");
         tm.addColumn("Apellido");
         tm.addColumn("Universidad");
-        tm.addColumn("Estado");
+        tm.addColumn("Edad");
+        tm.addColumn("Estado de Inscripcion");
 
         FiltroDao fd = new FiltroDao();
         ArrayList<Filtro> filtros = fd.readAll();
 
         for (Filtro fi : filtros) {
-            tm.addRow(new Object[]{fi.getCarnet(), fi.getNombre(), fi.getApellidos(), fi.getExistencia(), fi.getEdad()});
+            tm.addRow(new Object[]{fi.getCarnet(), fi.getNombres(), fi.getApellidos(), fi.getUniversidad(), fi.getEdad(), fi.getEstado()});
+
         }
 
         resultados.setModel(tm);
@@ -177,75 +187,128 @@ public class Consulta extends JFrame {
     }
 
     private void eventos() {
+
         insertar.addActionListener(new ActionListener() {
+
             @Override
+
             public void actionPerformed(ActionEvent e) {
+
                 FiltroDao fd = new FiltroDao();
-                Filtro f = new Filtro(carnet.getText(),nombre.getText(), universidad.getSelectedItem().toString(),Integer.parseInt(edad.getText()),apellido.getText(), true);
+
+                Filtro f = new Filtro(carnet.getText(), nombres.getText(), apellidos.getText(), universidad.getSelectedItem().toString(), Integer.parseInt( edad.getText()), true);
 
                 if (no.isSelected()) {
-                    f.setExistencia(false);
+
+                    f.setEstado(false);
+
                 }
 
                 if (fd.create(f)) {
-                    JOptionPane.showMessageDialog(null, "nombre registrado con éxito");
+
+                    JOptionPane.showMessageDialog(null, "Inscripcion registrada con éxito");
+
                     limpiarCampos();
+
                     llenarTabla();
+
                 } else {
-                    JOptionPane.showMessageDialog(null, "Ocurrio un problema con la creación de este nombre.");
+
+                    JOptionPane.showMessageDialog(null, "Ocurrio un problema con la creación de la Inscripcion.");
+
                 }
+
             }
+
         });
 
         actualizar.addActionListener(new ActionListener() {
+
             @Override
+
             public void actionPerformed(ActionEvent e) {
+
                 FiltroDao fd = new FiltroDao();
-                Filtro f = new Filtro(carnet.getText(),nombre.getText(), universidad.getSelectedItem().toString(),Integer.parseInt(edad.getText()),apellido.getText(), true);
+
+                Filtro f = new Filtro(carnet.getText(), nombres.getText(), apellidos.getText(), universidad.getSelectedItem().toString(), Integer.parseInt( edad.getText()), true);
 
                 if (no.isSelected()) {
-                    f.setExistencia(false);
+
+                    f.setEstado(false);
+
                 }
 
                 if (fd.update(f)) {
-                    JOptionPane.showMessageDialog(null, "nombre modificado con éxito");
+
+                    JOptionPane.showMessageDialog(null, "Filtro modificado con éxito");
+
                     limpiarCampos();
+
                     llenarTabla();
+
                 } else {
-                    JOptionPane.showMessageDialog(null, "Ocurrio un problema al momento de creación de este nombre.");
+
+                    JOptionPane.showMessageDialog(null, "Ocurrio un problema al momento de creación de este filtro.");
+
                 }
+
             }
+
         });
 
         eliminar.addActionListener(new ActionListener() {
+
             @Override
+
             public void actionPerformed(ActionEvent e) {
+
                 FiltroDao fd = new FiltroDao();
-                Filtro f = new Filtro(carnet.getText(),nombre.getText(), universidad.getSelectedItem().toString(),Integer.parseInt(edad.getText()),apellido.getText(), true);
+
+                Filtro f = new Filtro(carnet.getText(), nombres.getText(), apellidos.getText(), universidad.getSelectedItem().toString(), Integer.parseInt( edad.getText()), true);
+
                 if (fd.delete(carnet.getText())) {
-                    JOptionPane.showMessageDialog(null, "nombre eliminado con éxito");
+
+                    JOptionPane.showMessageDialog(null, "Inscripcion eliminada con éxito");
+
                     limpiarCampos();
+
                     llenarTabla();
+
                 } else {
-                    JOptionPane.showMessageDialog(null, "Ocurrio un problema al momento de eliminar este nombre.");
+
+                    JOptionPane.showMessageDialog(null, "Ocurrio un problema al momento de eliminar la Inscripcion.");
+
                 }
+
             }
+
         });
 
         buscar.addActionListener(new ActionListener() {
+
             @Override
+
             public void actionPerformed(ActionEvent e) {
+
                 FiltroDao fd = new FiltroDao();
+
                 Filtro f = fd.read(carnet.getText());
+
                 if (f == null) {
-                    JOptionPane.showMessageDialog(null, "El nombre buscado no ha sido encontrado");
+
+                    JOptionPane.showMessageDialog(null, "El Filtro buscado no ha sido encontrado");
+
                 } else {
 
                     carnet.setText(f.getCarnet());
-                    universidad.setSelectedItem(f.getUniversidad());
-                    edad.setText(Integer.toString(f.getEdad()));
 
-                    if (f.getExistencia()) {
+                    nombres.setText(f.getNombres());
+
+                    apellidos.setText(f.getApellidos());
+                    universidad.setSelectedItem(f.getUniversidad());
+
+                    if (f.getEstado()) {
+
                         si.setSelected(true);
                     } else {
                         no.setSelected(true);
@@ -264,10 +327,18 @@ public class Consulta extends JFrame {
 
     public void limpiarCampos() {
         carnet.setText("");
-        universidad.setSelectedItem("uca");
-        nombre.setText("");
-        apellido.setText("");
-
+        nombres.setText("");
+        apellidos.setText("");
+        edad.setText("");
+        universidad.setSelectedItem("UCA");
     }
 
+    public static void main(String[] args) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new Consulta().setVisible(true);
+            }
+        });
+    }
 }
